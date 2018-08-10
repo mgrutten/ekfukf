@@ -53,7 +53,7 @@ if isempty(alpha)
   alpha = 1;
 end
 if isempty(beta)
-  beta = 0;
+  beta = 2;
 end
 if isempty(kappa)
   kappa = 3 - n;

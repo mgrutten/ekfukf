@@ -53,16 +53,21 @@ function [X_i,P_i,MU,X,P] = uimm_update(X_p,P_p,c_j,ind,dims,Y,H,h,R,param)
 
     % Update for each model
     for i = 1:m
-        % Update the state estimates
-        if isempty(h) | isempty(h{i})
-            [X_i{i}, P_i{i}, K, IM, IS, lambda(i)] = kf_update(X_p{i},P_p{i},Y,H{i},R{i});
-        else            
-            [X_i{i}, P_i{i}, K, IM, IS, lambda(i)] = ukf_update1(X_p{i},P_p{i},Y,h{i},R{i},param{i});
+        if c_j(i) > 0
+          % Update the state estimates
+          if isempty(h) || isempty(h{i})
+            [X_i{i}, P_i{i}, ~, ~, ~, lambda(i)] = kf_update(X_p{i},P_p{i},Y,H{i},R{i});
+          else
+            [X_i{i}, P_i{i}, ~, ~, ~, lambda(i)] = ukf_update1(X_p{i},P_p{i},Y,h{i},R{i},param{i});
+          end
+        else
+          X_i{i} = zeros(dims,1);
+          P_i{i} = zeros(dims);
         end
     end
     
     % Calculate the model probabilities
-    MU = zeros(1,m); 
+    %MU = zeros(1,m); 
     c = sum(lambda.*c_j);
     MU = c_j.*lambda/c;
     
