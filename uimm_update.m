@@ -67,7 +67,6 @@ function [X_i,P_i,MU,X,P] = uimm_update(X_p,P_p,c_j,ind,dims,Y,H,h,R,param)
     end
     
     % Calculate the model probabilities
-    %MU = zeros(1,m); 
     c = sum(lambda.*c_j);
     MU = c_j.*lambda/c;
     

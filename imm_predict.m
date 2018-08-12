@@ -43,10 +43,6 @@ function [X_p,P_p,c_j,X,P] = imm_predict(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,Q)
     % Number of models 
     m = length(X_ip);
     
-    % Default values for state mean and covariance
-    MM_def = zeros(dims,1);
-    PP_def = diag(20*ones(dims,1));
-
     % Normalizing factors for mixing probabilities
     c_j = zeros(1,m);
     for j = 1:m
